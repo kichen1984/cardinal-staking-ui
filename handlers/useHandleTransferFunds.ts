@@ -1,6 +1,7 @@
 import {
   executeTransaction,
   withFindOrInitAssociatedTokenAccount,
+  withWrapSol,
 } from '@cardinal/common'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { Transaction } from '@solana/web3.js'
@@ -27,7 +28,7 @@ export const useHandleTransferFunds = () => {
     }: {
       transferAmount: number | undefined
     }): Promise<string> => {
-      if (!wallet) throw 'Wallet not found'
+      if (!wallet.publicKey) throw 'Wallet is not connected'
       if (!stakePool.data || !stakePool.data.parsed) throw 'No stake pool found'
       if (!rewardDistributor.data || !rewardDistributor.data.parsed)
         throw 'No reward distributor found'
@@ -51,6 +52,13 @@ export const useHandleTransferFunds = () => {
         wallet.publicKey,
         true
       )
+
+      if (
+        rewardDistributor.data.parsed.rewardMint.toString() ===
+        'So11111111111111111111111111111111111111112'
+      ) {
+        await withWrapSol(transaction, connection, wallet, transferAmount)
+      }
 
       transaction.add(
         createTransferCheckedInstruction(
