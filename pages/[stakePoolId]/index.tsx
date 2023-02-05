@@ -1,5 +1,5 @@
 import { stakePoolMetadatas } from 'api/mapping'
-import { Footer } from 'common/Footer'
+//import { Footer } from 'common/Footer'
 import { FooterSlim } from 'common/FooterSlim'
 import { Header } from 'common/Header'
 import { HeroLarge } from 'common/HeroLarge'
@@ -198,8 +198,8 @@ function StakePoolHome(props: { stakePoolMetadataName: string | null }) {
                     <Info
                       colorized
                       icon="performance"
-                      header="Personal Charts"
-                      description="View your recent performance"
+                      header="When is Payday?"
+                      description="Everyone gets paid bi-weekly around here"
                       style={{ color: stakePoolMetadata?.colors?.fontColor }}
                       content={
                         <div className="flex grow items-center justify-end">
@@ -219,11 +219,6 @@ function StakePoolHome(props: { stakePoolMetadataName: string | null }) {
           }[pane]
         }
       </div>
-      {!stakePoolMetadata?.hideFooter ? (
-        <Footer bgColor={stakePoolMetadata?.colors?.primary} />
-      ) : (
-        <div className="h-24"></div>
-      )}
     </div>
   )
 }

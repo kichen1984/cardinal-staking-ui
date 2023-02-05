@@ -139,7 +139,7 @@ export const StakePoolInfo = () => {
           <div className="flex min-w-[200px] flex-col text-lg">
             {!rewardMintInfo.isFetched || !rewards.data ? (
               <div className="relative flex h-10 w-full items-center justify-center">
-                <span className="text-gray-500"></span>
+                <span className="text-white"></span>
                 <div className="absolute w-full animate-pulse items-center justify-center rounded-lg bg-white bg-opacity-10 p-5"></div>
               </div>
             ) : (
@@ -156,7 +156,7 @@ export const StakePoolInfo = () => {
                       rewardMintInfo.data.metaplexMintData?.data.name ||
                       '???'}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-white">
                     {rewardDistributorData.data.parsed?.kind ===
                       RewardDistributorKind.Mint &&
                     !isRewardDistributorV2(rewardDistributorData.data.parsed)
