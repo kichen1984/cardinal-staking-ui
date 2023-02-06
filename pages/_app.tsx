@@ -2,6 +2,7 @@ import './styles.css'
 import '@cardinal/namespaces-components/dist/esm/styles.css'
 import 'tailwindcss/tailwind.css'
 
+
 import { WalletIdentityProvider } from '@cardinal/namespaces-components'
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
 import { WalletProvider } from '@solana/wallet-adapter-react'
@@ -22,13 +23,14 @@ import {
 import type { StakePoolMetadata } from 'api/mapping'
 import { ToastContainer } from 'common/Notification'
 import type { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import {
   EnvironmentProvider,
   getInitialProps,
 } from 'providers/EnvironmentProvider'
 import { StakePoolMetadataProvider } from 'providers/StakePoolMetadataProvider'
 import { UTCNowProvider } from 'providers/UTCNowProvider'
-import { useMemo } from 'react'
+import { useEffect , useMemo } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
@@ -53,6 +55,15 @@ const App = ({
   cluster: string
   poolMapping: StakePoolMetadata | undefined
 }) => {
+  const router = useRouter();
+  const { stakePoolId = '' } = router.query;
+  
+  useEffect(() => {
+    if (!stakePoolId) {
+      router.push('/[stakePoolId]', '/BurgerNights');
+    }
+  }, [stakePoolId]);
+
   const network = useMemo(() => {
     switch (cluster) {
       case 'mainnet':
